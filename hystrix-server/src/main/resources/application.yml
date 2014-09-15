@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: hystrix
+
+server:
+  port: 7980
+
+management:
+  context-path: /admin
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  instance:
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+    

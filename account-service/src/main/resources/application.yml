@@ -1,0 +1,21 @@
+
+spring:
+  application:
+    name: accounts
+
+server:
+  port: 8081
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+
+# For demo only allow more hystrix connections
+hystrix:
+  stream:
+    maxConcurrentConnections: 20
+
+
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
