@@ -113,6 +113,9 @@ class ReliableService {
 
     /**
      * Call this 20 times in a second and if it fails enough itll poen the circuiot.
+     * One way to make it fail quick enough is to do something that's guaranteed to ruin it,
+     * like for example taking the sibling service offline. (perhaps this manages users and the other
+     * manages feeds or something)
      *
      * if not, itll fallback.
      *
