@@ -133,33 +133,6 @@ class ReliableService {
         throw new RuntimeException("NUUUUUUU");
     }
 
-
-    /*//TODO: add hystrix caching
-    @HystrixCommand(fallbackMethod = "defaultLink")
-    public Link getStoresByLocationLink(Map<String, Object> parameters) {
-        URI storesUri = URI.create(uri);
-
-        try {
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("stores", false);
-            storesUri = URI.create(instance.getHomePageUrl());
-        }
-        catch (RuntimeException e) {
-            // Eureka not available
-        }
-
-
-        Traverson traverson = new Traverson(storesUri, MediaTypes.HAL_JSON);
-        Link link = traverson.follow("stores", "search", "by-location").withTemplateParameters(parameters).asLink();
-
-
-        return link;
-    }
-
-    public Link defaultLink(Map<String, Object> parameters) {
-        return null;
-    }
-*/
-
 }
 
 @Entity
