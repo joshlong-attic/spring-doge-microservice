@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableEurekaServer
 public class EurekaServerApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(EurekaServerApplication.class, args);
-    }
+		public static void main(String[] args) {
+				SpringApplication.run(EurekaServerApplication.class, args);
+		}
 }

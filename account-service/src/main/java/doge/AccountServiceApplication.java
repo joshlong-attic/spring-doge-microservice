@@ -52,9 +52,9 @@ import java.util.List;
 @EnableEurekaClient
 public class AccountServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AccountServiceApplication.class, args);
-    }
+		public static void main(String[] args) {
+				SpringApplication.run(AccountServiceApplication.class, args);
+		}
 }
 
 @RefreshScope
@@ -62,103 +62,105 @@ public class AccountServiceApplication {
 @RequestMapping("/accounts")
 class AccountRestController {
 
-    @Value("${accounts.message}")
-    String message;
+		@Value("${accounts.message}")
+		String message;
 
-    @Autowired
-    Environment environment;
+		@Autowired
+		Environment environment;
 
-    @Autowired
-    AccountRepository accountRepository;
+		@Autowired
+		AccountRepository accountRepository;
 
-    @Autowired
-    ReliableService reliableService;
+		@Autowired
+		ReliableService reliableService;
 
-    @RequestMapping("/reliable-message")
-    String reliableMessage() {
-        return this.reliableService.reliableMessage();
-    }
+		@RequestMapping("/reliable-message")
+		String reliableMessage() {
+				return this.reliableService.reliableMessage();
+		}
 
-    @RequestMapping("/message")
-    String message() {
-        return this.message;
-    }
+		@RequestMapping("/message")
+		String message() {
+				return this.message;
+		}
 
-    @RequestMapping
-    List<Account> accountList() {
-        return this.accountRepository.findAll();
-    }
+		@RequestMapping
+		List<Account> accountList() {
+				return this.accountRepository.findAll();
+		}
 
-    @RequestMapping("/{username}")
-    Account username(@PathVariable String username) {
-        return this.accountRepository.findByUsername(username);
-    }
+		@RequestMapping("/{username}")
+		Account username(@PathVariable String username) {
+				return this.accountRepository.findByUsername(username);
+		}
 }
 
 interface AccountRepository extends JpaRepository<Account, Long> {
-    Account findByUsername(String username);
+		Account findByUsername(String username);
 }
 
 @Service
 class ReliableService {
 
-    private String defaultMessage = "something by default";
+		private String defaultMessage = "something by default";
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
+		@Autowired
+		private DiscoveryClient discoveryClient;
 
-    public String defaultMessage() {
-        return this.defaultMessage;
-    }
+		public String defaultMessage() {
+				return this.defaultMessage;
+		}
 
-    /**
-     * Call this 20 times in a second and if it fails enough itll poen the circuiot.
-     * One way to make it fail quick enough is to do something that's guaranteed to ruin it,
-     * like for example taking the sibling service offline. (perhaps this manages users and the other
-     * manages feeds or something)
-     *
-     * if not, itll fallback.
-     *
-     * @return
-     */
-    @HystrixCommand(fallbackMethod = "defaultMessage")
-    public String reliableMessage() {
-        try {
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka(
-                    "accounts", false);
-            System.out.println(instance.getHomePageUrl());
-        } catch (RuntimeException e) {
-            // Eureka not available
-        }
+		/**
+		 * Call this 20 times in a second and if it fails enough itll poen the circuiot.
+		 * One way to make it fail quick enough is to do something that's guaranteed to ruin it,
+		 * like for example taking the sibling service offline. (perhaps this manages users and the other
+		 * manages feeds or something)
+		 * <p>
+		 * if not, itll fallback.
+		 *
+		 * @return
+		 */
+		@HystrixCommand(fallbackMethod = "defaultMessage")
+		public String reliableMessage() {
+				try {
+						InstanceInfo instance = discoveryClient.getNextServerFromEureka(
+								"accounts", false);
+						System.out.println(instance.getHomePageUrl());
+				}
+				catch (RuntimeException e) {
+						// Eureka not available
+				}
 
-        if (Math.random() > .5)
-            return "Reliable message";
-        throw new RuntimeException("NUUUUUUU");
-    }
+				if (Math.random() > .5) {
+						return "Reliable message";
+				}
+				throw new RuntimeException("NUUUUUUU");
+		}
 
 }
 
 @Entity
 class Account {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+		@Id
+		@GeneratedValue
+		private Long id;
 
-    private String username;
+		private String username;
 
-    public Account() {
-    }
+		public Account() {
+		}
 
-    public Account(String username) {
-        this.username = username;
-    }
+		public Account(String username) {
+				this.username = username;
+		}
 
-    public Long getId() {
-        return id;
-    }
+		public Long getId() {
+				return id;
+		}
 
-    public String getUsername() {
-        return username;
-    }
+		public String getUsername() {
+				return username;
+		}
 }

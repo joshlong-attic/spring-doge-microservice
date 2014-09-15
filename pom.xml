@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -10,14 +11,19 @@
 
     <modules>
 
-        <!-- Run the configuration server  -->
+        <!-- simple projects that basically enable infrastructure
+        -->
         <module>config-server</module>
-        <module>hystrix-server</module>		
+        <module>hystrix-server</module>
         <module>eureka-server</module>
 
-        <!-- Run the two REST services -->
+        <!-- Run 2 REST services -->
         <module>account-service</module>
         <module>dogifier-service</module>
+
+        <!-- An aggregation client that consumes both services (the gateway pattern)
+        -->
+        <module>client</module>
 
     </modules>
 

@@ -21,12 +21,13 @@ import org.springframework.web.client.RestTemplate;
 @EnableConfigServer
 public class ConfigurationServerApplication {
 
-    public static void main(String[] args) {
+		public static void main(String[] args) {
 
-
-        SpringApplication.run(ConfigurationServerApplication.class, args);
-        System.out.println(
-                "from REST:" + new RestTemplate().getForEntity("http://127.0.0.1:8888/accounts/master/", String.class));
-    }
+				SpringApplication.run(ConfigurationServerApplication.class, args);
+				System.out.println(
+						"from REST:" + new RestTemplate()
+								.getForEntity("http://127.0.0.1:8888/accounts/master/",
+										String.class));
+		}
 }
 
