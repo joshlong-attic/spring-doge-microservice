@@ -7,8 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Start this and then check out: http://localhost:8761/v2/apps
- * It's an XML representation of all the knowledge it has.
+ * Start this and then check out
+ * <A href="http://localhost:8761/v2/apps">XML representation of all the services that Eureak's discovered</A>.
+ *
+ *  @author Josh Long
  */
 
 @ComponentScan
@@ -17,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableEurekaServer
 public class EurekaServerApplication {
 
-		public static void main(String[] args) {
-				SpringApplication.run(EurekaServerApplication.class, args);
-		}
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
 }

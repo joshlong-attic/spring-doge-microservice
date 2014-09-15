@@ -9,25 +9,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Created by sgibb on 7/11/14.
+ * This will be available at <A href="://127.0.0.1:7980/">localhost:7980</a>.
  */
 @Configuration
 @ComponentScan
-@EnableAutoConfiguration
 @Controller
+@EnableAutoConfiguration
 @EnableHystrixDashboard
 public class HystrixDashboardApplication {
 
-		@RequestMapping("/")
-		public String home() {
-				return "forward:/hystrix/index.html";
-		}
+    @RequestMapping("/")
+    public String home() {
+        return "forward:/hystrix/index.html";
+    }
 
-		public static void main(String[] args) {
-
-				new SpringApplicationBuilder(HystrixDashboardApplication.class)
-						.web(true)
-						.run(args);
-		}
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(HystrixDashboardApplication.class)
+                .web(true)
+                .run(args);
+    }
 
 }

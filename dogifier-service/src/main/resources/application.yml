@@ -1,22 +1,12 @@
+
+spring:
+  application:
+    name: doges
+
 server:
   port: 8082
 
-management:
-  context-path: /admin
   
 logging:
   level:
     com.netflix.discovery: 'OFF'
-    
-eureka:
-  instance:
-    statusPageUrlPath: /admin/info
-    healthCheckUrlPath: /admin/health
-
-spring:
-  platform:
-    config:
-      server:
-        uri: file:///Users/jlong/Desktop/configuration
-#        basedir: target/config
-

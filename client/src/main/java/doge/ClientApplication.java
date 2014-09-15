@@ -19,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 public class ClientApplication {
 
-		public static void main(String args[]) {
-				SpringApplication.run(ClientApplication.class, args);
-		}
+    public static void main(String args[]) {
+        SpringApplication.run(ClientApplication.class, args);
+    }
 
 }
