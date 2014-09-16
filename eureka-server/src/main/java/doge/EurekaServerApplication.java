@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Start this and then check out
  * <A href="http://localhost:8761/v2/apps">XML representation of all the services that Eureak's discovered</A>.
- *
- *  @author Josh Long
  */
 
 @ComponentScan

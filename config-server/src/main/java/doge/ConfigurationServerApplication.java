@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * This will look in the .git repository configured in {@code application.yml}
@@ -23,10 +22,7 @@ import org.springframework.web.client.RestTemplate;
 public class ConfigurationServerApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(ConfigurationServerApplication.class, args);
-
-        //  System.out.println("from REST:" + new RestTemplate().getForEntity("http://127.0.0.1:8888/accounts/master/", String.class));
     }
 }
 
