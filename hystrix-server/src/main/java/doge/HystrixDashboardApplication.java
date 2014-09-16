@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * This will be available at <A href="://127.0.0.1:7980/">localhost:7980</a>.
+ * <p>
+ * When it opens, add the Hystrix stream for your service, like http://localhost:8081/hystrix.stream for the Accounts endpoint.
  */
 @Configuration
 @ComponentScan
