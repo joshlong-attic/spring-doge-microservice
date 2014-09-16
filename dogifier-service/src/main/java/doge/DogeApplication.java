@@ -83,7 +83,6 @@ public class DogeApplication extends RepositoryRestMvcConfiguration {
     }
 }
 
-
 @Component
 class DogePhotoResourceProcessor implements ResourceProcessor<Resource<DogePhoto>> {
 
