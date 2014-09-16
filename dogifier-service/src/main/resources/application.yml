@@ -10,3 +10,8 @@ server:
 logging:
   level:
     com.netflix.discovery: 'OFF'
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds : 10

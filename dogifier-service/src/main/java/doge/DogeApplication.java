@@ -4,16 +4,18 @@ import doge.photo.DogePhotoManipulator;
 import doge.photo.Photo;
 import doge.photo.PhotoResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.core.config.ResourceMappingConfiguration;
-import org.springframework.data.rest.core.mapping.ResourceMapping;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
@@ -30,16 +32,18 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 /**
  * Endpoints like : http://joshs-macbook-pro.local:8082/dogePhotos/search/findOneByIdAndUserId?id=541772453004963ddb67dc77&userId=1
- * <p>
- * <p>
  * add files like :  curl -F "file=@/Users/jlong/Desktop/img.png" http://joshs-macbook-pro.local:8082/dogePhotos/{dogePhotoId}/photo
+ *
+ * Or, simply use the dogifier endpoint directly:
+ *
+ * curl -F "file=@/Users/jlong/Desktop/img.jpg" http://joshs-macbook-pro.local:8082/dogifier/1
+ *
  */
 @Configuration
 @EnableAutoConfiguration
@@ -47,19 +51,12 @@ import java.util.UUID;
 @EnableEurekaClient
 public class DogeApplication extends RepositoryRestMvcConfiguration {
 
-
-    /*   @Bean
-       CommandLineRunner init(DogePhotoRepository dogePhotoRepository) {
-           return args -> {
-               dogePhotoRepository.deleteAll();
-
-               dogePhotoRepository.save(new DogePhoto("1", "11"));
-               dogePhotoRepository.save(new DogePhoto("1", "111"));
-
-               dogePhotoRepository.save(new DogePhoto("2", "22"));
-           };
-       }*/
-
+    @Bean
+    CommandLineRunner init ( DogePhotoRepository dogePhotoRepository ){
+        return a->{
+            dogePhotoRepository.deleteAll();
+        } ;
+    }
 
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
@@ -67,8 +64,18 @@ public class DogeApplication extends RepositoryRestMvcConfiguration {
     }
 
     @Bean
-    DogePhotoManipulator dogePhotoManipulator() {
-        return new DogePhotoManipulator();
+    @RefreshScope
+    DogePhotoManipulator dogePhotoManipulator(@Value("${very-so-much-count}") int countOfExclamations,
+                                              Environment environment) {
+
+        DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
+
+        for (int i = 0; i <countOfExclamations ; i++) {
+            String[] e = environment.getProperty("very-so-much-" + (1 + i)).split(" ");
+            dogePhotoManipulator.addTextOverlay(e[0], e[1], e[2]);
+        }
+
+        return dogePhotoManipulator;
     }
 
     public static void main(String[] args) {
@@ -113,7 +120,8 @@ class DogeRestController {
     @RequestMapping(value = "/dogifier/{userId}", method = RequestMethod.POST)
     ResponseEntity<?> dogifier(
             @PathVariable String userId,
-            @RequestParam MultipartFile file, UriComponentsBuilder uriComponentsBuilder)
+            @RequestParam MultipartFile file,
+            UriComponentsBuilder uriComponentsBuilder)
             throws IOException {
 
         String fileRef = UUID.randomUUID() + ".jpg";
