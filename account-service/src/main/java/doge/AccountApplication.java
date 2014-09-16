@@ -92,7 +92,6 @@ class DogeIntegration {
 interface AccountRepository extends JpaRepository<Account, Long> {
 }
 
-
 @Entity
 class Account {
 

@@ -17,4 +17,3 @@ eureka:
     healthCheckUrlPath: /admin/health
   server:
     waitTimeInMsWhenSyncEmpty: 0
-    

@@ -1,6 +1,3 @@
 spring:
   application:
     name: hystrix
-  platform:
-    config:
-      uri: http://localhost:${config.port:8888}

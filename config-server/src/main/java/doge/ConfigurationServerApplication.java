@@ -15,14 +15,18 @@ import org.springframework.web.client.RestTemplate;
  * all the values in {@code account-service.properties} being available
  * through the {@link org.springframework.core.env.Environment}.
  */
+
 @Configuration
 @EnableAutoConfiguration
 @EnableEurekaClient
 @EnableConfigServer
 public class ConfigurationServerApplication {
+
     public static void main(String[] args) {
+
         SpringApplication.run(ConfigurationServerApplication.class, args);
-        System.out.println("from REST:" + new RestTemplate().getForEntity("http://127.0.0.1:8888/accounts/master/", String.class));
+
+        //  System.out.println("from REST:" + new RestTemplate().getForEntity("http://127.0.0.1:8888/accounts/master/", String.class));
     }
 }
 

@@ -2,3 +2,7 @@
 spring:
   application:
     name: doges
+
+#  platform:
+#    config:
+#      uri: http://localhost:${config.port:8888}

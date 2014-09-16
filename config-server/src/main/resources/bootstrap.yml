@@ -1,3 +1,4 @@
+# service registration - Eureka
 spring:
   application:
     name: config-server
