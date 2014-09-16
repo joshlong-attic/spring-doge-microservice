@@ -62,8 +62,9 @@ public class DogeApplication extends RepositoryRestMvcConfiguration {
 
     @Bean
     @RefreshScope
-    DogePhotoManipulator dogePhotoManipulator(@Value("${very-so-much-count}") int countOfExclamations,
-                                              Environment environment) {
+    DogePhotoManipulator dogePhotoManipulator(
+            @Value("${very-so-much-count}") int countOfExclamations,
+            Environment environment) {
 
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
 

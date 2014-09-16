@@ -55,7 +55,8 @@ class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 
     @Override
     public Resource<Account> process(Resource<Account> accountResource) {
-        Link dogeLink = this.dogeIntegration.buildDogeLink(accountResource.getContent());
+        Link dogeLink = this.dogeIntegration.buildDogeLink(
+                accountResource.getContent());
         if (null != dogeLink)
             accountResource.add(dogeLink);
         return accountResource;
@@ -80,7 +81,8 @@ class DogeIntegration {
 
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
-        InstanceInfo instance = discoveryClient.getNextServerFromEureka(dogeServiceName, false);
+        InstanceInfo instance = discoveryClient.getNextServerFromEureka(
+                dogeServiceName, false);
         URI dogesUri = URI.create(instance.getHomePageUrl());
         return new Link(dogesUri.toString() + "dogePhotos/search/findByUserId?userId="+account.getId(), "doges");
     }
