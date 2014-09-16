@@ -124,7 +124,6 @@ class DogeRestController {
         return () -> this.fs.getResource(dogePhoto.getFileRef()).getInputStream();
     }
 
-    // todo make this show up in the root resource collection
     @RequestMapping(value = "/dogifier/{userId}", method = RequestMethod.POST)
     ResponseEntity<?> dogifier(
             @PathVariable String userId,
