@@ -18,7 +18,7 @@
         <module>eureka-server</module>
 
         <!-- Run 2 REST services -->
-        <module>user-service</module>
+        <module>account-service</module>
         <module>dogifier-service</module>
 
         <!-- An aggregation client that consumes both services (the gateway pattern)
