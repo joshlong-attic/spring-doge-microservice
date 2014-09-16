@@ -39,12 +39,10 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Endpoints like : http://joshs-macbook-pro.local:8082/dogePhotos/search/findOneByIdAndUserId?id=541772453004963ddb67dc77&userId=1
- * add files like :  curl -F "file=@/Users/jlong/Desktop/img.png" http://joshs-macbook-pro.local:8082/dogePhotos/{dogePhotoId}/photo
- * <p>
- * Or, simply use the dogifier endpoint directly:
- * <p>
- * curl -F "file=@/Users/jlong/Desktop/img.jpg" http://joshs-macbook-pro.local:8082/dogifier/1
+ * Upload new photos using  {@code curl -F "file=@/Users/jlong/Desktop/img.jpg" http://joshs-macbook-pro.local:8082/dogifier/1}.
+ *
+ * @author Josh Long
+ * @author Phillip Webb
  */
 @Configuration
 @EnableAutoConfiguration
@@ -54,9 +52,7 @@ public class DogeApplication extends RepositoryRestMvcConfiguration {
 
     @Bean
     CommandLineRunner init(DogePhotoRepository dogePhotoRepository) {
-        return a -> {
-            dogePhotoRepository.deleteAll();
-        };
+        return a -> dogePhotoRepository.deleteAll();
     }
 
     @Override
