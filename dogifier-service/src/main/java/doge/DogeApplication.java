@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
@@ -27,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
@@ -79,6 +81,18 @@ public class DogeApplication extends RepositoryRestMvcConfiguration {
 
     public static void main(String[] args) {
         SpringApplication.run(DogeApplication.class, args);
+    }
+}
+
+@Component
+class DogifierResourceProcessor implements ResourceProcessor<RepositoryLinksResource> {
+    @Override
+    public RepositoryLinksResource process(RepositoryLinksResource objects) {
+        objects.add(new Link(ServletUriComponentsBuilder.fromCurrentRequest()
+                .build()
+                .toUriString()
+                .concat("dogifier/{id}"), "dogifier"));
+        return objects;
     }
 }
 

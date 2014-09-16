@@ -20,9 +20,7 @@
             <artifactId>spring-cloud-config-client</artifactId>
         </dependency>
 
-        <!--
-            later
-        -->
+
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
