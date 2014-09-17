@@ -45,8 +45,8 @@ import java.util.UUID;
  * @author Phillip Webb
  */
 @Configuration
-@EnableAutoConfiguration
 @ComponentScan
+@EnableAutoConfiguration
 @EnableEurekaClient
 public class DogeApplication extends RepositoryRestMvcConfiguration {
 

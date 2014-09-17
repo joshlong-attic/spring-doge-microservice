@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
  * all the values in {@code account-service.properties} being available
  * through the {@link org.springframework.core.env.Environment}.
  */
-
 @Configuration
+@ComponentScan
 @EnableAutoConfiguration
 @EnableEurekaClient
 @EnableConfigServer

@@ -9,6 +9,7 @@ import java.util.List;
 
 @RepositoryRestResource
 public interface DogePhotoRepository extends MongoRepository<DogePhoto, String> {
+
     @RestResource(rel = "by-user-id")
     List<DogePhoto> findByUserId(  @Param("userId") String userId);
 
