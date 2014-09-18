@@ -36,7 +36,7 @@ public class ClientApplication {
         };
     }
 
-    @Configuration
+ /*   @Configuration
     @EnableWebSocketMessageBroker
     static class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
 
@@ -50,7 +50,7 @@ public class ClientApplication {
             registry.enableSimpleBroker("/queue/", "/topic/");
             registry.setApplicationDestinationPrefixes("/app");
         }
-    }
+    }*/
 
     public static void main(String args[]) {
         SpringApplication.run(ClientApplication.class, args);

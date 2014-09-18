@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: doge-service
+    name: doges
 
 server:
   port: 8082

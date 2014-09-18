@@ -131,7 +131,7 @@ class DogePhotoController {
         try (InputStream inputStream = photo.getInputStream()) {
             this.fs.store(inputStream, id);
         }
-        URI uri = uriBuilder.path("/doges/{key}/photos/{id}").buildAndExpand(key, id).toUri();
+        URI uri = uriBuilder.path("/doges/{key}/photos/{id}/photo").buildAndExpand(key, id).toUri();
 
         Map<String, String> msg = new HashMap<>();
         msg.put("uploadDate", java.time.Clock.systemUTC().instant().toString());

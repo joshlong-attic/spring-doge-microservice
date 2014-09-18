@@ -10,6 +10,5 @@
   },
   "_source": "git://github.com/requirejs/domReady.git",
   "_target": "~2.0.1",
-  "_originalSource": "requirejs-domready",
-  "_direct": true
+  "_originalSource": "requirejs-domready"
 }

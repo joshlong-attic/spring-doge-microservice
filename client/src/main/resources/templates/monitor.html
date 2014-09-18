@@ -21,17 +21,20 @@
 
 			<div id="imgPreview" style="width: 300px;">
 
-				Showing {{size}} upload(s).
+				Showing {{uploads.length}} upload(s).
+
+                The length is {{upload.length}}.
 
 				<div ng-repeat="u in uploads">
-					<img class="fadeIn" ng-src="{{u.dogePhotoUri}}" />
-					<div style="font-size: smaller; padding-bottom: 1em;"> by <b>{{ u.userName }} </b> on {{ u.uploadDate }}.</div>
+                    {{u}}
+					<img class="fadeIn" ng-src="{{u}}" />
+					<div style="font-size: smaller; padding-bottom: 1em;"> by <b>{{ u }} </b> on {{ u }}.</div>
 				</div>
 
 			</div>
 		</div>
 
 		<script src="doge.js"></script>
-		<script src="lib/requirejs/require.js" data-main="monitorApp.js"></script>
+		<script src="lib/requirejs/require.js" data-main="monitor.js"></script>
 	</body>
 </html>

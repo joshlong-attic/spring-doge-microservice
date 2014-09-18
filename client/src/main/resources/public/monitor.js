@@ -36,7 +36,7 @@ define([ 'require', 'angular' ], function (require, angular) {
 			$scope.uploads = [];
 			$scope.size = 0;
 
-			require([ 'sockjs', 'stomp' ], function (sockjs, stomp) {
+		/*	require([ 'sockjs', 'stomp' ], function (sockjs, stomp) {
 				var socket = new SockJS('/doge');
 				var client = Stomp.over(socket);
 				client.connect({}, function (frame) {
@@ -51,7 +51,7 @@ define([ 'require', 'angular' ], function (require, angular) {
 					console.log("STOMP protocol error " + error);
 				});
 			});
-
+*/
 			$scope.onDoge = function (msg) {
 				$scope.uploads.unshift(msg);
 				$scope.size = $scope.uploads.length
