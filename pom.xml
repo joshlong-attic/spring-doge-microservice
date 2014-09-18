@@ -18,7 +18,7 @@
         <module>hystrix-server</module>
         <module>eureka-server</module>
         <module>account-service</module>
-        <module>dogifier-service</module>
+        <module>doge-service</module>
         <module>client</module>
     </modules>
     <dependencies>

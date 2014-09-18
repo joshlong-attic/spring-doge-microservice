@@ -1,0 +1,12 @@
+
+spring:
+  application:
+    name: doge-service
+
+server:
+  port: 8082
+
+  
+logging:
+  level:
+    com.netflix.discovery: 'OFF'

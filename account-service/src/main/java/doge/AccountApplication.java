@@ -19,11 +19,11 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.net.URI;
 
 @Configuration
 @EnableAutoConfiguration
@@ -46,16 +46,16 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
 @Component
 class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 
-    private final DogeIntegration dogeIntegration;
+    private final DogeClient dogeClient;
 
     @Autowired
-    public AccountResourceProcessor(DogeIntegration dogeIntegration) {
-        this.dogeIntegration = dogeIntegration;
+    public AccountResourceProcessor(DogeClient dogeClient) {
+        this.dogeClient = dogeClient;
     }
 
     @Override
     public Resource<Account> process(Resource<Account> accountResource) {
-        Link dogeLink = this.dogeIntegration.buildDogeLink(
+        Link dogeLink = this.dogeClient.buildDogeLink(
                 accountResource.getContent());
         if (null != dogeLink)
             accountResource.add(dogeLink);
@@ -64,14 +64,14 @@ class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 }
 
 @Component
-class DogeIntegration {
+class DogeClient {
 
-    private String dogeServiceName = "doges";
+    private String dogeServiceName = "doge-service";
 
     private final DiscoveryClient discoveryClient;
 
     @Autowired
-    public DogeIntegration(DiscoveryClient discoveryClient) {
+    public DogeClient(DiscoveryClient discoveryClient) {
         this.discoveryClient = discoveryClient;
     }
 
@@ -81,10 +81,10 @@ class DogeIntegration {
 
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
-        InstanceInfo instance = discoveryClient.getNextServerFromEureka(
-                dogeServiceName, false);
-        URI dogesUri = URI.create(instance.getHomePageUrl());
-        return new Link(dogesUri.toString() + "dogePhotos/search/findByUserId?userId="+account.getId(), "doges");
+        InstanceInfo instance = discoveryClient.getNextServerFromEureka(dogeServiceName, false);
+        String url = UriComponentsBuilder.fromHttpUrl(instance.getHomePageUrl() + "/doges/{key}/photos")
+                .buildAndExpand(Long.toString(account.getId())).toUriString();
+        return new Link(url, "doges");
     }
 
 
