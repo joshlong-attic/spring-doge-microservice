@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -36,9 +37,10 @@ public class ClientApplication {
         };
     }
 
- /*   @Configuration
+    @Configuration
     @EnableWebSocketMessageBroker
-    static class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfigurer {
+    static class WebSocketConfiguration
+            extends AbstractWebSocketMessageBrokerConfigurer {
 
         @Override
         public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -46,11 +48,11 @@ public class ClientApplication {
         }
 
         @Override
-        public void configureMessageBroker(org.springframework.messaging.simp.config.MessageBrokerRegistry registry) {
-            registry.enableSimpleBroker("/queue/", "/topic/");
-            registry.setApplicationDestinationPrefixes("/app");
+        public void configureMessageBroker(MessageBrokerRegistry registry) {
+            registry.enableSimpleBroker("/topic/");
         }
-    }*/
+
+    }
 
     public static void main(String args[]) {
         SpringApplication.run(ClientApplication.class, args);

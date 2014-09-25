@@ -10,3 +10,4 @@ server:
 logging:
   level:
     com.netflix.discovery: 'OFF'
+
