@@ -18,13 +18,26 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
  * and is example of the  <A href = "http://microservices.io/patterns/apigateway.html">
  * API Gateway pattern</A>.
  *
+ * 
+ *
  * @author Josh Long
  */
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
 @EnableZuulProxy
-public class ClientApplication {
+@EnableWebSocketMessageBroker
+public class ClientApplication extends AbstractWebSocketMessageBrokerConfigurer {
+
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/doge").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/topic/");
+    }
 
     @Bean
     WebMvcConfigurerAdapter mvcViewConfigurer() {
@@ -37,22 +50,6 @@ public class ClientApplication {
         };
     }
 
-    @Configuration
-    @EnableWebSocketMessageBroker
-    static class WebSocketConfiguration
-            extends AbstractWebSocketMessageBrokerConfigurer {
-
-        @Override
-        public void registerStompEndpoints(StompEndpointRegistry registry) {
-            registry.addEndpoint("/doge").withSockJS();
-        }
-
-        @Override
-        public void configureMessageBroker(MessageBrokerRegistry registry) {
-            registry.enableSimpleBroker("/topic/");
-        }
-
-    }
 
     public static void main(String args[]) {
         SpringApplication.run(ClientApplication.class, args);

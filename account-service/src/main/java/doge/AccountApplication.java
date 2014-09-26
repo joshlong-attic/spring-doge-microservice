@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,8 +32,6 @@ import javax.persistence.Id;
 @EnableHystrix
 @EnableEurekaClient
 public class AccountApplication extends RepositoryRestMvcConfiguration {
-
-
 
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {

@@ -38,7 +38,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Upload new photos using  {@code curl -F "file=@/Users/jlong/Desktop/img.jpg" http://joshs-macbook-pro.local:8082/dogifier/1}.
+ * Upload new photos using  {@code curl -F "file=@/Users/jlong/Desktop/img.jpg" http://joshs-macbook-pro.local:8082/doges/24232/photos}.
  *
  * @author Josh Long
  * @author Phillip Webb
@@ -84,6 +84,14 @@ class DogePhoto {
     public DogePhoto() {
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     public DogePhoto(String key) {
         this.key = key;
     }
@@ -118,7 +126,7 @@ class DogePhotoResourceProcessor implements ResourceProcessor<Resource<DogePhoto
 }
 
 @RestController
-@RequestMapping(value = "/doges/{key}/photos")
+@RequestMapping(value = "/doges/{key}/photos", produces = MediaType.APPLICATION_JSON_VALUE)
 class DogePhotoController {
 
     private final DogePhotoRepository dogePhotoRepository;
@@ -135,7 +143,8 @@ class DogePhotoController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     Resource<DogePhoto> readPhoto(@PathVariable String key, @PathVariable String id) {
-        return new Resource<DogePhoto>(this.dogePhotoRepository.findByKeyAndId(key, id));
+        DogePhoto dogePhoto = this.dogePhotoRepository.findByKeyAndId(key, id);
+        return new Resource<DogePhoto>(dogePhoto);
     }
 
     @RequestMapping(value = "/{id}/photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
