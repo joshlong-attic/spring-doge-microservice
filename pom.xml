@@ -8,10 +8,16 @@
     <artifactId>core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <!--  <parent>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter</artifactId>
+          <version>1.0.0.M1</version>
+      </parent>-->
+
     <parent>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starters</artifactId>
-        <version>1.0.0.BUILD-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.1.5.RELEASE</version>
     </parent>
     <modules>
         <module>config-server</module>
@@ -21,6 +27,17 @@
         <module>doge-service</module>
         <module>client</module>
     </modules>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starters</artifactId>
+                <version>1.0.0.M1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.yaml</groupId>
@@ -36,32 +53,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
+
+
     <repositories>
         <repository>
-            <id>libs-release-local</id>
-            <url>http://repo.spring.io/libs-release-local</url>
-        </repository>
-        <repository>
-            <id>libs-milestone-local</id>
+            <id>spring-milestones</id>
             <url>http://repo.spring.io/libs-milestone-local</url>
-        </repository>
-        <repository>
-            <id>libs-snapshot-local</id>
-            <url>http://repo.spring.io/libs-snapshot-local</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>libs-release-local</id>
-            <url>http://repo.spring.io/libs-release-local</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>libs-milestone-local</id>
+            <id>spring-milestones</id>
             <url>http://repo.spring.io/libs-milestone-local</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>libs-snapshot-local</id>
-            <url>http://repo.spring.io/libs-snapshot-local</url>
         </pluginRepository>
     </pluginRepositories>
 </project>

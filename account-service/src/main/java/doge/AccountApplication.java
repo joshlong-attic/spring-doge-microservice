@@ -45,8 +45,7 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
 
 
 @Component
-class AccountResourceProcessor
-        implements ResourceProcessor<Resource<Account>> {
+class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 
     private final DogeClient dogeClient;
 
@@ -84,7 +83,8 @@ class DogeClient {
 
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
-        InstanceInfo instance = discoveryClient.getNextServerFromEureka(dogeServiceName, false);
+        InstanceInfo instance = discoveryClient.getNextServerFromEureka(
+                dogeServiceName, false);
         String url = UriComponentsBuilder.fromHttpUrl(instance.getHomePageUrl() + "/doges/{key}/photos")
                 .buildAndExpand(Long.toString(account.getId())).toUriString();
         return new Link(url, "doges");

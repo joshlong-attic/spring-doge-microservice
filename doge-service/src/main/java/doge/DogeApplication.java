@@ -57,8 +57,9 @@ public class DogeApplication {
 
     @Bean
     @RefreshScope
-    DogePhotoManipulator dogePhotoManipulator(@Value("${very-so-much-count}") int countOfExclamations,
-                                              Environment environment) {
+    DogePhotoManipulator dogePhotoManipulator(
+            @Value("${very-so-much-count}") int countOfExclamations,
+            Environment environment) {
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
         for (int i = 0; i < countOfExclamations; i++) {
             String[] e = environment.getProperty("very-so-much-" + (1 + i)).split(" ");
