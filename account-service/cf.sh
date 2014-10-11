@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-app_name=doge-service
+app_name=account-service
 
 # cleanup if necessary
 cf apps | grep $app_name && cf delete $app_name

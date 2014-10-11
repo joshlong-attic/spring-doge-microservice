@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-app_name=doge-service
+app_name=client
 
 # cleanup if necessary
-cf apps | grep $app_name && cf delete $app_name
+cf apps  | grep $app_name && cf delete $app_name
 
 # push the app proper to CF
 echo pushing $app_name
@@ -13,6 +13,7 @@ cf delete-orphaned-routes
 
 # register as a service (deleting existing one if it exists)
 uri=`cf apps | grep $app_name | tr -s ' ' | cut -d' ' -f 6`
+
 
 echo "deployed $app_name to $uri.";
 

@@ -9,6 +9,7 @@ applications:
   buildpack: https://github.com/cloudfoundry/java-buildpack.git
   services:
     - doge-mongo
+    - config-service
   env:
     SPRING_PROFILES_DEFAULT: cloud
     DEBUG: "true"

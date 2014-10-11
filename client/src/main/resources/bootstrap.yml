@@ -1,3 +1,10 @@
 spring:
   application:
     name: client
+
+---
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      uri: ${vcap.services.config-service.credentials.uri}

@@ -1,13 +1,16 @@
 ---
 applications:
 - name: doge-service
-  memory: 256M
+  memory: 512M
   instances: 1
   host: doge-service-${random-word}
   domain: cfapps.io
   path: target/doge-service.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
   services:
     - doge-mongo
+    - config-service
+    - eureka-service
   env:
     SPRING_PROFILES_DEFAULT: cloud
     DEBUG: "true"

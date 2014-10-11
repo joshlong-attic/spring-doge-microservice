@@ -1,5 +1,14 @@
+zuul:
+  proxy:
+    mapping: /api
+    route:
+      doges: /doges
+      accounts: /accounts
+
+
+
 server:
-  port: 8089
+  port: 9900
 
 
 logging:
