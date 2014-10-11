@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: eureka-service
+
+
+---
+spring:
+  profiles: cloud
+  cloud:
+    config:
+      uri: ${vcap.services.config-service.credentials.uri}

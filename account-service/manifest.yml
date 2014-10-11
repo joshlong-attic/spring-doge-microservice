@@ -1,0 +1,15 @@
+---
+applications:
+- name: account-service
+  memory: 256M
+  instances: 1
+  host: account-service-${random-word}
+  domain: cfapps.io
+  path: target/account-service.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  services:
+    - doge-mongo
+  env:
+    SPRING_PROFILES_DEFAULT: cloud
+    DEBUG: "true"
+    debug: "true"

@@ -10,8 +10,17 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>config-server</artifactId>
+    <artifactId>config-service</artifactId>
 
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
