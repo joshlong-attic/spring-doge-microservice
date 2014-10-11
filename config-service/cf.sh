@@ -9,10 +9,16 @@ cf apps  | grep $app_name && {yes | cf delete $app_name }
 # push the app proper to CF
 echo pushing $app_name
 cf push
+yes | cf delete-orphaned-routes
 
-# figure out where the service lives and make it a service for other nodes.
+# register as a service (deleting existing one if it exists)
 uri=`cf apps | grep $app_name | tr -s ' ' | cut -d' ' -f 6`
+cf s | grep $app_name && {yes | cf ds $app_name}
 cf cups $app_name  -p '{"uri":"http://'$uri'"}'
-echo deployed user-provided-service at $uri. You can bind to it from other apps and reference the VCAP_SERVICES variable 'vcap.services.config-service.credentials.uri'
+
+
+echo "deployed config-service ($uri). Access with env var: 'vcap.services.config-service.credentials.uri'";
+
+
 
 

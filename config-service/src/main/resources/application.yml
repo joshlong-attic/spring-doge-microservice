@@ -12,7 +12,6 @@ spring:
     config:
       server:
         uri: https://github.com/joshlong/spring-doge-microservice-configuration
-        basedir: target/config
 
 #       basedir: config
 #       This is where the git repository is cloned. It's ephemeral. By default it's in /tmp
