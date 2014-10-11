@@ -1,7 +1,7 @@
 ---
 applications:
 - name: config-service
-  memory: 512M
+  memory: 256M
   instances: 1
   host: config-service-${random-word}
   domain: cfapps.io
