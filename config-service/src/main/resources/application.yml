@@ -1,17 +1,41 @@
 server:
   port: 8888
-
-
 logging:
   level:
     com.netflix.discovery: 'OFF'
-    
-
 spring:
   platform:
     config:
       server:
         uri: https://github.com/joshlong/spring-doge-microservice-configuration
 
-#       basedir: config
-#       This is where the git repository is cloned. It's ephemeral. By default it's in /tmp
+management:
+  context-path: /admin
+
+logging:
+  level:
+    com.netflix.discovery: 'OFF'
+    org.springframework.cloud: 'DEBUG'
+
+eureka:
+  instance:
+    statusPageUrlPath: /admin/info
+    healthCheckUrlPath: /admin/health
+
+
+# TODO: move these profiles to the remote repo
+
+---
+spring:
+  profiles: cloud
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.${PREFIX:}eureka.credentials.uri:http://${PREFIX:}eureka.${application.domain:cfapps.io}}/v2/
+  instance:
+    hostname: ${PREFIX:}${spring.application.name}.${application.domain:cfapps.io}
+    nonSecurePort: 80
+# no JCE in PWS
+security:
+  user:
+    password: password
