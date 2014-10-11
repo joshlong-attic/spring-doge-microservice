@@ -17,7 +17,7 @@ cf s | grep $app_name &&  cf ds $app_name
 cf cups $app_name  -p '{"uri":"http://'$uri'"}'
 
 
-echo "deployed config-service ($uri). Access with env var: 'vcap.services.config-service.credentials.uri'";
+echo "deployed $app_name to $uri. Access as a service using env var: 'vcap.services.$app_name.credentials.uri'";
 
 
 

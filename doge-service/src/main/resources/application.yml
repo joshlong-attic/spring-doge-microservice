@@ -1,13 +1,2 @@
-
-spring:
-  application:
-    name: doges
-
 server:
   port: 8089
-
-  
-logging:
-  level:
-    com.netflix.discovery: 'OFF'
-

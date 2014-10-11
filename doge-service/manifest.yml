@@ -1,0 +1,14 @@
+---
+applications:
+- name: doge-service
+  memory: 256M
+  instances: 1
+  host: doge-service-${random-word}
+  domain: cfapps.io
+  path: target/doge-service.jar
+  services:
+    - doge-mongo
+  env:
+    SPRING_PROFILES_DEFAULT: cloud
+    DEBUG: "true"
+    debug: "true"
