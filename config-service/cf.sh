@@ -1,23 +1,42 @@
 #!/bin/bash
 set -e
 
-app_name=config-service
+APP_NAME=config-service
+DOMAIN=${DOMAIN:-run.pivotal.io}
+TARGET=api.${DOMAIN}
+APPLICATION_DOMAIN=${APPLICATION_DOMAIN:-"$DOMAIN"}
 
-# cleanup if necessary
-cf apps  | grep $app_name && cf delete $app_name
+echo $APPLICATION_DOMAIN $APP_NAME $DOMAIN $TARGET
+
+# cleanup if necessary and/or login
+#cf a  | grep $APP_NAME && cf d $APP_NAME
+
+if [ "$DOMAIN" == "run.pivotal.io" ]; then
+    APPLICATION_DOMAIN=cfapps.io
+fi
+
+cf api | grep ${TARGET} || cf api ${TARGET} --skip-ssl-validation
+cf a | grep OK || cf login
+
+
 
 # push the app proper to CF
-echo pushing $app_name
-cf push
-cf delete-orphaned-routes
+cf push $APP_NAME --no-start
+#cf delete-orphaned-routes
+
+cf env $APP_NAME | grep APPLICATION_DOMAIN || cf set-env $APP_NAME APPLICATION_DOMAIN $APPLICATION_DOMAIN
+
+cf restart $APP_NAME
 
 # register as a service (deleting existing one if it exists)
-uri=`cf apps | grep $app_name | tr -s ' ' | cut -d' ' -f 6`
-cf s | grep $app_name &&  cf ds $app_name
-cf cups $app_name  -p '{"uri":"http://'$uri'"}'
+uri=`cf apps | grep $APP_NAME | tr -s ' ' | cut -d' ' -f 6`
+echo registering $uri as a service.
 
+cf s | grep $APP_NAME &&  cf ds $APP_NAME
 
-echo "deployed $app_name to $uri. Access as a service using env var: 'vcap.services.$app_name.credentials.uri'";
+cf cups $APP_NAME  -p '{"uri":"http://'$uri'"}'
+
+echo "deployed $APP_NAME to $uri. Access as a service using env var: 'vcap.services.$APP_NAME.credentials.uri'";
 
 
 

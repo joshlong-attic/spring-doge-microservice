@@ -10,7 +10,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>hystrix-server</artifactId>
+    <artifactId>hystrix-service</artifactId>
 
     <build>
         <finalName>${project.artifactId}</finalName>

@@ -1,22 +1,31 @@
 #!/bin/bash
 set -e
 
-app_name=eureka-service
+APP_NAME=eureka-service
+DOMAIN=${DOMAIN:-run.pivotal.io}
+TARGET=api.${DOMAIN}
+APPLICATION_DOMAIN=${APPLICATION_DOMAIN:-"$DOMAIN"}
 
-# cleanup if necessary
-cf apps  | grep $app_name && cf delete $app_name
+if [ "$DOMAIN" == "run.pivotal.io" ]; then
+    APPLICATION_DOMAIN=cfapps.io
+fi
 
-# push the app proper to CF
-echo pushing $app_name
-cf push
-cf delete-orphaned-routes
+cf api | grep ${TARGET} || cf api ${TARGET} --skip-ssl-validation
+cf a | grep OK || cf login
+cf push $APP_NAME --no-start
 
-# register as a service (deleting existing one if it exists)
-uri=`cf apps | grep $app_name | tr -s ' ' | cut -d' ' -f 6`
-cf s | grep $app_name && cf ds $app_name
-cf cups $app_name  -p '{"uri":"http://'$uri'"}'
+cf restart $APP_NAME
+APP_URI=`cf apps | grep $APP_NAME | tr -s ' ' | cut -d' ' -f 6`
 
-echo "deployed $app_name to $uri. Access as a service using env var: 'vcap.services.$app_name.credentials.uri'";
+# find it, update it
+P='{"uri":"http://'$APP_NAME.$APPLICATION_DOMAIN'"}'
+echo $P
+cf s | grep $APP_NAME && cf uups $APP_NAME  -p $P
+# find it OR create it
+cf s | grep $APP_NAME ||  cf cups $APP_NAME  -p $P
+
+
+echo "deployed $APP_NAME to $APP_URI. Access as a service using env var: 'vcap.services.$APP_NAME.credentials.uri'";
 
 
 

@@ -1,29 +1,16 @@
 server:
   port: 8888
+
 logging:
   level:
     com.netflix.discovery: 'OFF'
+
 spring:
-  platform:
+  cloud:
     config:
       server:
         uri: https://github.com/joshlong/spring-doge-microservice-configuration
 
-management:
-  context-path: /admin
-
-logging:
-  level:
-    com.netflix.discovery: 'OFF'
-    org.springframework.cloud: 'DEBUG'
-
-eureka:
-  instance:
-    statusPageUrlPath: /admin/info
-    healthCheckUrlPath: /admin/health
-
-
-# TODO: move these profiles to the remote repo
 
 ---
 spring:
@@ -31,11 +18,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.${PREFIX:}eureka.credentials.uri:http://${PREFIX:}eureka.${application.domain:cfapps.io}}/v2/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://eureka-service.${application.domain}}/v2/
   instance:
-    hostname: ${PREFIX:}${spring.application.name}.${application.domain:cfapps.io}
+    hostname: ${spring.application.name}.${application.domain:cfapps.io}
     nonSecurePort: 80
-# no JCE in PWS
-security:
-  user:
-    password: password
