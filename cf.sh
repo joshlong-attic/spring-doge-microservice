@@ -22,7 +22,6 @@ function app_domain(){
 function deploy_app(){
     APP_NAME=$1
     cd $APP_NAME
-    mvn clean install
     cf push $APP_NAME  --no-start
     APPLICATION_DOMAIN=`app_domain $APP_NAME`
     echo determined that application_domain for $APP_NAME is $APPLICATION_DOMAIN.
@@ -75,13 +74,20 @@ function reset(){
     cf d doge-service
     cf d account-service
     cf d hystrix-service
+    cf d webapp
 
     cf ds config-service
     cf ds eureka-service
 
-    cf delete-orphaned-routes
 }
 
+
+### INSTALLATION STEPS
+### feel free to comment out all the steps that you don't need
+### and selectively uncomment them if the script in total encounters
+### IO errors and such.
+
+mvn -DskipTests=true clean install
 
 login
 reset
@@ -91,3 +97,5 @@ deploy_doge
 deploy_account
 deploy_hystrix
 deploy_webapp
+
+cf delete-orphaned-routes
