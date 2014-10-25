@@ -3,9 +3,10 @@ server:
 
 zuul:
   proxy:
+    mapping: /api
     route:
-      account-service: /a
-      doge-service: /d
+      account-service: /accounts
+      doge-service: /doges
 
 ---
 spring:
