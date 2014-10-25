@@ -30,17 +30,6 @@ import org.springframework.core.env.Environment;
 @EnableEurekaClient
 @EnableConfigServer
 public class ConfigurationServerApplication {
-
-    @Bean
-    CommandLineRunner init(Environment e) {
-        return args -> {
-            System.out.println("default profile: " + e.getProperty("spring.profiles.default"));
-            System.out.println("eureka credentials: " + e.getProperty("vcap.services.eureka-service.credentials.uri"));
-            System.out.println("eureka.client.serviceUrl.defaultZone: " + e.getProperty("eureka.client.serviceUrl.defaultZone"));
-            System.out.println("eureka.client.instance.hostname: " + e.getProperty("eureka.client.instance.hostname"));
-        };
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(ConfigurationServerApplication.class, args);
     }

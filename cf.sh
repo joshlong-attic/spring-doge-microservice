@@ -36,6 +36,7 @@ function deploy_service(){
     SVC_NAME=$1
     APPLICATION_DOMAIN=`app_domain $SVC_NAME`
     JSON='{"uri":"http://'$APPLICATION_DOMAIN'"}'
+    echo creating service $JSON
     cf s | grep $SVC_NAME ||  cf cups $SVC_NAME  -p $JSON
 }
 
@@ -45,15 +46,24 @@ function deploy_eureka() {
     deploy_service $EUREKA
 }
 
-function deploy_config_service(){
-    CONFIG_SERVICE=config-service
-    deploy_app $CONFIG_SERVICE
-    deploy_service $CONFIG_SERVICE
+function deploy_config(){
+    CONFIG=config-service
+    deploy_app $CONFIG
+    deploy_service $CONFIG
 }
 
 #echo `app_domain eureka-service`
+function reset(){
+    cf d config-service
+    cf ds config-service
+    cf d eureka-service
+    cf ds eureka-service
+}
 
-deploy_config_service
+reset
+deploy_eureka
+deploy_config
+
 
 #cf delete-orphaned-routes
 

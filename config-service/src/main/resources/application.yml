@@ -1,16 +1,11 @@
 server:
   port: 8888
 
-logging:
-  level:
-    com.netflix.discovery: 'OFF'
-
 spring:
   cloud:
     config:
       server:
         uri: https://github.com/joshlong/spring-doge-microservice-configuration
-
 
 ---
 spring:
@@ -18,7 +13,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://eureka-service.${application.domain}}/v2/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri}/v2/
   instance:
     hostname: ${application.domain}
     nonSecurePort: 80
