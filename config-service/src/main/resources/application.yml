@@ -20,5 +20,5 @@ eureka:
     serviceUrl:
       defaultZone: ${vcap.services.eureka-service.credentials.uri:http://eureka-service.${application.domain}}/v2/
   instance:
-    hostname: ${spring.application.name}.${application.domain:cfapps.io}
+    hostname: ${application.domain}
     nonSecurePort: 80

@@ -10,6 +10,6 @@ applications:
     - doge-mongo
     - config-service
   env:
-    SPRING_PROFILES_DEFAULT: cloud
+    SPRING_PROFILES_ACTIVE: cloud
     DEBUG: "true"
     debug: "true"

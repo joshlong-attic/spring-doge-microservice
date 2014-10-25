@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+##
+## EUREKA
+##
+
 APP_NAME=eureka-service
 DOMAIN=${DOMAIN:-run.pivotal.io}
 TARGET=api.${DOMAIN}
@@ -12,13 +16,18 @@ fi
 
 cf api | grep ${TARGET} || cf api ${TARGET} --skip-ssl-validation
 cf a | grep OK || cf login
+
+cf d $APP_NAME
+
+
 cf push $APP_NAME --no-start
 
+
 cf restart $APP_NAME
-APP_URI=`cf apps | grep $APP_NAME | tr -s ' ' | cut -d' ' -f 6`
+APP_URI=`cf apps | grep $APP_NAME | tr -s ' ' | cut -d' ' -f 6 | cut -d, -f1`
 
 # find it, update it
-P='{"uri":"http://'$APP_NAME.$APPLICATION_DOMAIN'"}'
+P='{"uri":"http://'$APP_URI'"}'
 echo $P
 cf s | grep $APP_NAME && cf uups $APP_NAME  -p $P
 # find it OR create it
