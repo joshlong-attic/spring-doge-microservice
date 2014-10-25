@@ -4,11 +4,13 @@ import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.DiscoveryClient;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Arrays;
 
 @Configuration
 @EnableAutoConfiguration
@@ -41,6 +44,15 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
     public static void main(String[] args) {
         SpringApplication.run(AccountApplication.class, args);
     }
+
+    @Bean
+    CommandLineRunner init(AccountRepository accountRepository) {
+        return args -> Arrays.asList("juergen,mario,dave,oliver,phil,josh,spencer,mark".split(","))
+                .<String>forEach(n -> {
+                    accountRepository.save(new Account(n));
+                });
+    }
+
 }
 
 

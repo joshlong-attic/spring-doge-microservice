@@ -35,7 +35,7 @@
         <module>hystrix-service</module>
         <module>account-service</module>
         <module>doge-service</module>
-        <module>client</module>
+        <module>webapp</module>
     </modules>
     <dependencyManagement>
         <dependencies>

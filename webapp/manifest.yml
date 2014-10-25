@@ -1,15 +1,15 @@
 ---
 applications:
-- name: client
+- name: webapp
   memory: 512M
   instances: 1
-  host: client-${random-word}
+  host: webapp-${random-word}
   domain: cfapps.io
-  path: target/client.jar
+  path: target/webapp.jar
   services:
-    - eureka-service
     - config-service
+    - eureka-service
   env:
-    SPRING_PROFILES_DEFAULT: cloud
+    SPRING_PROFILES_ACTIVE: cloud
     DEBUG: "true"
     debug: "true"

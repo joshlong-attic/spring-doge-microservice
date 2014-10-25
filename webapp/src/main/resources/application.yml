@@ -1,5 +1,11 @@
 server:
-  port: 7980
+  port: 9900
+
+zuul:
+  proxy:
+    route:
+      account-service: /a
+      doge-service: /d
 
 ---
 spring:

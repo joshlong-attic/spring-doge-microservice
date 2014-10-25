@@ -1,0 +1,15 @@
+---
+applications:
+- name: hystrix-service
+  memory: 512M
+  instances: 1
+  host: hystrix-service-${random-word}
+  domain: cfapps.io
+  path: target/hystrix-service.jar
+  services:
+    - config-service
+    - eureka-service
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+    DEBUG: "true"
+    debug: "true"

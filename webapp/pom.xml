@@ -10,7 +10,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>client</artifactId>
+    <artifactId>webapp</artifactId>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -61,7 +61,7 @@
         </dependency>
 
 
-        <!-- testing!-->
+  <!--      &lt;!&ndash; testing!&ndash;&gt;
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-client</artifactId>
@@ -70,6 +70,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
 </project>
