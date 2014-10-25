@@ -23,7 +23,7 @@ function app_domain(){
 function deploy_app(){
     APP_NAME=$1
     cd $APP_NAME
-    cf d $APP_NAME
+    mvn clean install
     cf push $APP_NAME  --no-start
     APPLICATION_DOMAIN=`app_domain $APP_NAME`
     echo determined that application_domain for $APP_NAME is $APPLICATION_DOMAIN.
@@ -55,8 +55,8 @@ function deploy_config(){
 #echo `app_domain eureka-service`
 function reset(){
     cf d config-service
-    cf ds config-service
     cf d eureka-service
+    cf ds config-service
     cf ds eureka-service
 }
 

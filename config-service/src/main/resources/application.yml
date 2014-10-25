@@ -13,7 +13,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri}/v2/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri}/eureka/
   instance:
-    hostname: ${application.domain}
+    hostname: ${APPLICATION_DOMAIN}
     nonSecurePort: 80
