@@ -77,13 +77,11 @@ function reset(){
 }
 
 
-#
-#reset
-#deploy_eureka
-#deploy_config
-#deploy_doge
 
-
+reset
+deploy_eureka
+deploy_config
+deploy_doge
 deploy_account
 
 #
