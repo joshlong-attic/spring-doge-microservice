@@ -9,6 +9,7 @@ applications:
   services:
     - doge-mongo
     - config-service
+    - eureka-service
   env:
     SPRING_PROFILES_ACTIVE: cloud
     DEBUG: "true"

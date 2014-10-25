@@ -15,9 +15,8 @@ function login(){
 }
 
 function app_domain(){
-    APP_NAME=$1
-    APPLICATION_DOMAIN=`cf apps | grep $APP_NAME | tr -s ' ' | cut -d' ' -f 6 | cut -d, -f1`
-    echo $APPLICATION_DOMAIN
+    D=`cf apps | grep $1 | tr -s ' ' | cut -d' ' -f 6 | cut -d, -f1`
+    echo $D
 }
 
 function deploy_app(){
@@ -33,42 +32,59 @@ function deploy_app(){
 }
 
 function deploy_service(){
-    SVC_NAME=$1
-    APPLICATION_DOMAIN=`app_domain $SVC_NAME`
-    JSON='{"uri":"http://'$APPLICATION_DOMAIN'"}'
-    echo creating service $JSON
-    cf s | grep $SVC_NAME ||  cf cups $SVC_NAME  -p $JSON
+    N=$1
+    D=`app_domain $N`
+    JSON='{"uri":"http://'$D'"}'
+    echo cf cups $N  -p $JSON
+    cf cups $N -p $JSON
 }
 
 function deploy_eureka() {
-    EUREKA=eureka-service
-    deploy_app $EUREKA
-    deploy_service $EUREKA
+    A=eureka-service
+    deploy_app $A
+    deploy_service $A
 }
 
 function deploy_config(){
-    CONFIG=config-service
-    deploy_app $CONFIG
-    deploy_service $CONFIG
+    A=config-service
+    deploy_app $A
+    deploy_service $A
 }
 
-#echo `app_domain eureka-service`
+function deploy_doge(){
+    cf s | grep doge-service || cf cs mongolab sandbox doge-mongo
+    A=doge-service
+    deploy_app $A
+}
+
+function deploy_account(){
+
+    cf cs elephantsql turtle  doge-postgresql
+    A=account-service
+    deploy_app $A
+}
+
 function reset(){
     cf d config-service
     cf d eureka-service
+    cf d doge-service
+    cf d account-service
+
     cf ds config-service
     cf ds eureka-service
+
+    cf delete-orphaned-routes
 }
 
-reset
-deploy_eureka
-deploy_config
 
-
-#cf delete-orphaned-routes
-
+#
+#reset
 #deploy_eureka
+#deploy_config
+#deploy_doge
 
+
+deploy_account
 
 #
 #if [ "$DOMAIN" == "run.pivotal.io" ]; then

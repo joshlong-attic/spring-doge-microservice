@@ -1,16 +1,16 @@
 ---
 applications:
 - name: account-service
-  memory: 256M
+  memory: 512M
   instances: 1
   host: account-service-${random-word}
   domain: cfapps.io
   path: target/account-service.jar
-  buildpack: https://github.com/cloudfoundry/java-buildpack.git
   services:
-    - doge-mongo
+    - doge-postgresql
     - config-service
+    - eureka-service
   env:
-    SPRING_PROFILES_DEFAULT: cloud
+    SPRING_PROFILES_ACTIVE: cloud
     DEBUG: "true"
     debug: "true"

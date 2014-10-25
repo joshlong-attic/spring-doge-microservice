@@ -1,17 +1,13 @@
-
-spring:
-  application:
-    name: accounts
-
 server:
   port: 8081
 
-
-logging:
-  level:
-    com.netflix.discovery: 'OFF'
-
-
+---
+spring:
+  profiles: cloud
 eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${vcap.services.eureka-service.credentials.uri}/eureka/
   instance:
-    leaseRenewalIntervalInSeconds: 10
+    hostname: ${APPLICATION_DOMAIN}
+    nonSecurePort: 80
