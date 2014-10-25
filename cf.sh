@@ -69,8 +69,6 @@ function deploy_webapp(){
     deploy_app webapp
 }
 
-
-
 function reset(){
     cf d config-service
     cf d eureka-service
@@ -85,11 +83,11 @@ function reset(){
 }
 
 
-#login
-#reset
-#deploy_eureka
-#deploy_config
-#deploy_doge
-#deploy_account
-#deploy_hystrix
+login
+reset
+deploy_eureka
+deploy_config
+deploy_doge
+deploy_account
+deploy_hystrix
 deploy_webapp
