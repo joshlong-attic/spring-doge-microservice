@@ -47,10 +47,15 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
 
     @Bean
     CommandLineRunner init(AccountRepository accountRepository) {
-        return args -> Arrays.asList("juergen,mario,dave,oliver,phil,josh,spencer,mark".split(","))
-                .<String>forEach(n -> {
-                    accountRepository.save(new Account(n));
-                });
+        return args -> {
+
+            accountRepository.deleteAll();
+
+            Arrays.asList(("juergen,mario,dave,oliver,phil,josh,spencer,mark").split(","))
+                    .<String>forEach(n -> {
+                        accountRepository.save(new Account(n));
+                    });
+        };
     }
 
 }
