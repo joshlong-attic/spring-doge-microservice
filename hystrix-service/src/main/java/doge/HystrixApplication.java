@@ -27,6 +27,7 @@ public class HystrixApplication {
     SpringClientFactory springClientFactory (){
         return new SpringClientFactory() ;
     }
+
     public static void main(String[] args) {
         SpringApplication.run(HystrixApplication.class, args);
     }

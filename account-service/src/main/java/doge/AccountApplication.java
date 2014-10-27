@@ -85,7 +85,7 @@ class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 @Component
 class DogeClient {
 
-    private String dogeServiceName = "doges";
+    private String dogeServiceName = "doge-service";
 
     private final DiscoveryClient discoveryClient;
 
