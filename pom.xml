@@ -8,11 +8,7 @@
     <artifactId>core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <!--  <parent>
-          <groupId>org.springframework.cloud</groupId>
-          <artifactId>spring-cloud-starter</artifactId>
-          <version>1.0.0.M1</version>
-      </parent>-->
+
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -42,12 +38,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starters</artifactId>
-<!--
-                <version>1.0.0.M1</version>
--->
                 <version>1.0.0.BUILD-SNAPSHOT</version>
-                <!--<version>1.0.0.M1</version>-->
-
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
