@@ -38,7 +38,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Upload new photos using  {@code curl -F "file=@/Users/jlong/Desktop/img.jpg" http://joshs-macbook-pro.local:8082/doges/24232/photos}.
+ * Upload new photos using  {@code curl -F "file=@/Users/jlong/Desktop/img.jpg" http://127.0.0.1:8089/doges/9/photos}.
  *
  * @author Josh Long
  * @author Phillip Webb
@@ -62,10 +62,15 @@ public class DogeApplication {
             Environment environment
     ) {
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
+
         for (int i = 0; i < countOfExclamations; i++) {
+
             String[] e = environment.getProperty("very-so-much-" + (1 + i)).split(" ");
+
             dogePhotoManipulator.addTextOverlay(e[0], e[1], e[2]);
+
         }
+
         return dogePhotoManipulator;
     }
 

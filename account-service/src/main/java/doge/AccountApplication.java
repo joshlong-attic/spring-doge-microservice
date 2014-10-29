@@ -85,8 +85,6 @@ class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 @Component
 class DogeClient {
 
-    private String dogeServiceName = "doge-service";
-
     private final DiscoveryClient discoveryClient;
 
     @Autowired
@@ -101,8 +99,9 @@ class DogeClient {
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
         InstanceInfo instance = discoveryClient.getNextServerFromEureka(
-                dogeServiceName, false);
-        String url = UriComponentsBuilder.fromHttpUrl(instance.getHomePageUrl() + "/doges/{key}/photos")
+                "doge-service", false);
+        String url = UriComponentsBuilder.fromHttpUrl(
+                instance.getHomePageUrl() + "/doges/{key}/photos")
                 .buildAndExpand(Long.toString(account.getId())).toUriString();
         return new Link(url, "doges");
     }
