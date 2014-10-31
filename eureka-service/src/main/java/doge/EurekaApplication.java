@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @EnableAutoConfiguration
 @EnableEurekaServer
-@EnableEurekaClient
+//@EnableEurekaClient
 public class EurekaApplication {
 
     public static void main(String[] args) {

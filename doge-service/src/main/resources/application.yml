@@ -1,6 +1,12 @@
 server:
   port: 8089
 
+logging:
+  level:
+    com:
+      netflix:
+        discovery: INFO
+
 ---
 spring:
   profiles: cloud

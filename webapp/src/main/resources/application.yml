@@ -7,7 +7,7 @@ zuul:
     route:
       account-service: /accounts
       doge-service: /doges
-
+s
 ---
 spring:
   profiles: cloud

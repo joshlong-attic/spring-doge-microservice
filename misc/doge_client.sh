@@ -1,4 +1,10 @@
 #!/bin/sh
 set -e
 
-curl -F "file=@$2" http://127.0.0.1:8089/doges/$1/photos
+
+uri=http://127.0.0.1:8089/doges/$1/photos
+resp=`curl -F "file=@$2" $uri`
+echo response is $resp
+id=`echo $resp| head -n2 | tail -n1 | cut -f2 -d: |cut -f2 -d\" `
+echo id is $id
+echo new photo lives at $uri/$id/photo
