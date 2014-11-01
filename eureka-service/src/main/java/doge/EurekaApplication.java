@@ -20,10 +20,8 @@ import org.springframework.context.annotation.Configuration;
  * @author Josh Long
  */
 @Configuration
-@ComponentScan
 @EnableAutoConfiguration
 @EnableEurekaServer
-//@EnableEurekaClient
 public class EurekaApplication {
 
     public static void main(String[] args) {
