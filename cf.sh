@@ -39,15 +39,15 @@ function deploy_service(){
 }
 
 function deploy_eureka() {
-    A=eureka-service
-    deploy_app $A
-    deploy_service $A
+    NAME=eureka-service
+    deploy_app $NAME
+    deploy_service $NAME
 }
 
 function deploy_config(){
-    A=config-service
-    deploy_app $A
-    deploy_service $A
+    NAME=config-service
+    deploy_app $NAME
+    deploy_service $NAME
 }
 
 function deploy_doge(){
@@ -69,6 +69,7 @@ function deploy_webapp(){
 }
 
 function reset(){
+    cf delete-orphaned-routes
     cf d config-service
     cf d eureka-service
     cf d doge-service
@@ -87,15 +88,23 @@ function reset(){
 ### and selectively uncomment them if the script in total encounters
 ### IO errors and such.
 
+#todo:  create empty, stub UPSes for eureka and config. Then, deploy the eureka-service and config-service
+#todo:  (but as --no-start). Then, update the UPSes w/ actual URIs of the newly deployed service. Then,
+#todo:  restart eureka-service & config-service.
+#todo:  this has the benefit of letting us use config-service to configure eureka-service.
+
 mvn -DskipTests=true clean install
 
 login
 reset
-deploy_eureka
 deploy_config
+deploy_eureka
 deploy_doge
 deploy_account
 deploy_hystrix
 deploy_webapp
 
-cf delete-orphaned-routes
+
+#todo: in the new system, there is config-service FIRST. It doesn't care about eureka as its a UPS as well
+#todo: and then theres eureka-service. update above accordingly. config FIRST, then eureka!
+#todo: ALSO, update to spring-boot.. 1.1.8 and make sure to mvn clean install
