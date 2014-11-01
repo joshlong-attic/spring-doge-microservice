@@ -69,6 +69,7 @@ function deploy_webapp(){
 }
 
 function reset(){
+    cf delete-orphaned-routes
     cf d config-service
     cf d eureka-service
     cf d doge-service
@@ -96,14 +97,12 @@ mvn -DskipTests=true clean install
 
 login
 reset
-deploy_eureka
 deploy_config
+deploy_eureka
 deploy_doge
 deploy_account
 deploy_hystrix
 deploy_webapp
-
-cf delete-orphaned-routes
 
 
 #todo: in the new system, there is config-service FIRST. It doesn't care about eureka as its a UPS as well

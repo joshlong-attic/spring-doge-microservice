@@ -6,8 +6,8 @@ applications:
   host: config-service-${random-word}
   domain: cfapps.io
   path: target/config-service.jar
-  services:
-    - eureka-service
+#  services:
+#    - eureka-service
   env:
     SPRING_PROFILES_ACTIVE: cloud
     DEBUG: "true"
