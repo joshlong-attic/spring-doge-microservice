@@ -88,23 +88,15 @@ function reset(){
 ### and selectively uncomment them if the script in total encounters
 ### IO errors and such.
 
-#todo:  create empty, stub UPSes for eureka and config. Then, deploy the eureka-service and config-service
-#todo:  (but as --no-start). Then, update the UPSes w/ actual URIs of the newly deployed service. Then,
-#todo:  restart eureka-service & config-service.
-#todo:  this has the benefit of letting us use config-service to configure eureka-service.
-
 mvn -DskipTests=true clean install
 
-login
-reset
-deploy_config
-deploy_eureka
-deploy_doge
-deploy_account
-deploy_hystrix
+#login
+#reset
+#deploy_config
+#deploy_eureka
+#deploy_doge
+#deploy_account
+#deploy_hystrix
 deploy_webapp
 
 
-#todo: in the new system, there is config-service FIRST. It doesn't care about eureka as its a UPS as well
-#todo: and then theres eureka-service. update above accordingly. config FIRST, then eureka!
-#todo: ALSO, update to spring-boot.. 1.1.8 and make sure to mvn clean install

@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: ${vcap.application.port:8089}
 
 spring:
   cloud:
