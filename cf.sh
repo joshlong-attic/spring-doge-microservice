@@ -89,13 +89,13 @@ function reset(){
 
 mvn -DskipTests=true clean install
 
-login
-reset
-deploy_eureka
-deploy_config
-deploy_doge
-deploy_account
-deploy_hystrix
+#login
+#reset
+#deploy_eureka
+#deploy_config
+#deploy_doge
+#deploy_account
+#deploy_hystrix
 deploy_webapp
 
 cf delete-orphaned-routes

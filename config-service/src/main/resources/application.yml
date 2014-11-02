@@ -7,13 +7,3 @@ spring:
       server:
         uri: https://github.com/joshlong/spring-doge-microservice-configuration
 
----
-spring:
-  profiles: cloud
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri}/eureka/
-  instance:
-    hostname: ${APPLICATION_DOMAIN}
-    nonSecurePort: 80
