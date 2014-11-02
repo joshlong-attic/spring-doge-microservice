@@ -5,4 +5,4 @@ spring:
   cloud:
     config:
       server:
-        uri: ${env.PWD}/../spring-doge-microservice-configuration
+        uri: https://github.com/joshlong/spring-doge-microservice-configuration
