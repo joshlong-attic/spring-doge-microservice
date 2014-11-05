@@ -98,8 +98,10 @@ class DogeClient {
 
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
+
         InstanceInfo instance = discoveryClient.getNextServerFromEureka(
                 "doge-service", false);
+
         String url = UriComponentsBuilder.fromHttpUrl(
                 instance.getHomePageUrl() + "/doges/{key}/photos")
                 .buildAndExpand(Long.toString(account.getId())).toUriString();
