@@ -20,6 +20,9 @@ function app_domain(){
 }
 
 function deploy_app(){
+    # common to all nodes
+    cf cs cloudamqp tiger doge-rabbitmq
+
     APP_NAME=$1
     cd $APP_NAME
     cf push $APP_NAME  --no-start
@@ -98,5 +101,3 @@ deploy_doge
 deploy_account
 deploy_hystrix
 deploy_webapp
-
-

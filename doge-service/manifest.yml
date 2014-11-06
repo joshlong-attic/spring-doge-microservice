@@ -8,6 +8,7 @@ applications:
   path: target/doge-service.jar
   services:
     - doge-mongo
+    - doge-rabbitmq
     - config-service
     - eureka-service
   env:

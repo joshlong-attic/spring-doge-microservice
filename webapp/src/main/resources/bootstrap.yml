@@ -4,3 +4,4 @@ spring:
   cloud:
     config:
       uri: ${vcap.services.config-service.credentials.uri:http://localhost:8888}
+
