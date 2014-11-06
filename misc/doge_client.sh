@@ -10,5 +10,5 @@ echo response is $resp
 id=`echo $resp| head -n2 | tail -n1 | cut -f2 -d: |cut -f2 -d\" `
 echo id is $id
 uri=$uri/$id/photo
-echo attempting to fetch the result (which lives at $uri).
+echo result from $uri 
 wget $uri

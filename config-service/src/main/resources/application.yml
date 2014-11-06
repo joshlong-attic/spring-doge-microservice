@@ -1,8 +1,11 @@
 server:
   port: ${vcap.application.port:8888}
 
+config-dir: ${user.home}/Desktop/bootiful-microservices/code/spring-doge-microservice-configuration
+
 spring:
   cloud:
     config:
       server:
-        uri: https://github.com/joshlong/spring-doge-microservice-configuration
+        uri: ${config-dir:https://github.com/joshlong/spring-doge-microservice-configuration}
+
