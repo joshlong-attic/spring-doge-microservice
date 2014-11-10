@@ -36,25 +36,22 @@ import java.util.Arrays;
 @EnableEurekaClient
 public class AccountApplication extends RepositoryRestMvcConfiguration {
 
+    public static void main(String[] args) {
+        SpringApplication.run(AccountApplication.class, args);
+    }
+
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Account.class);
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(AccountApplication.class, args);
-    }
-
     @Bean
     CommandLineRunner init(AccountRepository accountRepository) {
         return args -> {
-
             accountRepository.deleteAll();
-
-            Arrays.asList(("juergen,mario,dave,oliver,phil,josh,spencer,mark").split(","))
-                    .<String>forEach(n -> {
-                        accountRepository.save(new Account(n));
-                    });
+            Arrays.asList("juergen,mario,dave,oliver,phil,josh,spencer,mark".split(",")).forEach(n -> {
+                accountRepository.save(new Account(n));
+            });
         };
     }
 
@@ -73,8 +70,7 @@ class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 
     @Override
     public Resource<Account> process(Resource<Account> accountResource) {
-        Link dogeLink = this.dogeClient.buildDogeLink(
-                accountResource.getContent());
+        Link dogeLink = this.dogeClient.buildDogeLink(accountResource.getContent());
         if (null != dogeLink)
             accountResource.add(dogeLink);
         return accountResource;
@@ -98,17 +94,12 @@ class DogeClient {
 
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
-
-        InstanceInfo instance = discoveryClient.getNextServerFromEureka(
-                "doge-service", false);
-
+        InstanceInfo instance = discoveryClient.getNextServerFromEureka("doge-service", false);
         String url = UriComponentsBuilder.fromHttpUrl(
                 instance.getHomePageUrl() + "/doges/{key}/photos")
                 .buildAndExpand(Long.toString(account.getId())).toUriString();
         return new Link(url, "doges");
     }
-
-
 }
 
 @RepositoryRestResource
@@ -125,7 +116,6 @@ class Account {
     public Long getId() {
         return id;
     }
-
 
     @Id
     @GeneratedValue
