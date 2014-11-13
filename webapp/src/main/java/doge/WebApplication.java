@@ -62,6 +62,7 @@ public class WebApplication extends AbstractWebSocketMessageBrokerConfigurer {
         };
     }
 
+
 /*
     @Bean
     ConnectionFactory connectionFactory() {
