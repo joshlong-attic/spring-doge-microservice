@@ -7,6 +7,6 @@ spring:
   cloud:
     config:
       server:
-        uri: ${CONFIG_DIR:https://github.com/joshlong/spring-doge-microservice-configuration}
+        uri: ${config-dir:https://github.com/joshlong/spring-doge-microservice-configuration}
 
 

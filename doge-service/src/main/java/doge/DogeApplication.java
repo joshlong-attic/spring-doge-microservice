@@ -13,7 +13,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -57,14 +56,11 @@ public class DogeApplication {
 
     @Bean
     @RefreshScope
-    DogePhotoManipulator dogePhotoManipulator(
-            @Value("${very-so-much-count}") int countOfExclamations,
-            Environment environment) {
+    DogePhotoManipulator dogePhotoManipulator(@Value("${very-so-much}") String[] exclamations) {
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
-
-        for (int i = 0; i < countOfExclamations; i++) {
-            String[] e = environment.getProperty("very-so-much-" + (1 + i)).split(" ");
-            dogePhotoManipulator.addTextOverlay(e[0], e[1], e[2]);
+        for (String e : exclamations) {
+            String parts[] = e.split(" ");
+            dogePhotoManipulator.addTextOverlay(parts[0], parts[1], parts[2]);
         }
         return dogePhotoManipulator;
     }
