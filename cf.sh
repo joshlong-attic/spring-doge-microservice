@@ -72,7 +72,6 @@ function deploy_webapp(){
 }
 
 function reset(){
-    cf delete-orphaned-routes
     cf d config-service
     cf d eureka-service
     cf d doge-service
@@ -83,6 +82,7 @@ function reset(){
     cf ds config-service
     cf ds eureka-service
 
+    cf delete-orphaned-routes
 }
 
 
@@ -91,7 +91,7 @@ function reset(){
 ### and selectively uncomment them if the script in total encounters
 ### IO errors and such.
 
-mvn -DskipTests=true clean install
+#mvn -DskipTests=true clean install
 
 login
 reset
