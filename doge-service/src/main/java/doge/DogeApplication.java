@@ -56,7 +56,9 @@ public class DogeApplication {
 
     @Bean
     @RefreshScope
-    DogePhotoManipulator dogePhotoManipulator(@Value("${very-so-much}") String[] exclamations) {
+    DogePhotoManipulator dogePhotoManipulator(
+            @Value("${very-so-much}") String[] exclamations) {
+
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
         for (String e : exclamations) {
             String parts[] = e.split(" ");
