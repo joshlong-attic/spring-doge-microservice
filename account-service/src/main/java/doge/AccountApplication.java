@@ -54,7 +54,6 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
             });
         };
     }
-
 }
 
 

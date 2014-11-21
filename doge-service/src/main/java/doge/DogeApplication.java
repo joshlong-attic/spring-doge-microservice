@@ -33,6 +33,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -56,14 +57,12 @@ public class DogeApplication {
 
     @Bean
     @RefreshScope
-    DogePhotoManipulator dogePhotoManipulator(
-            @Value("${very-so-much}") String[] exclamations) {
-
+    DogePhotoManipulator dogePhotoManipulator( @Value("${very-so-much}") String[] exclamations) {
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
-        for (String e : exclamations) {
+        Arrays.asList(exclamations).forEach(e -> {
             String parts[] = e.split(" ");
             dogePhotoManipulator.addTextOverlay(parts[0], parts[1], parts[2]);
-        }
+        });
         return dogePhotoManipulator;
     }
 
