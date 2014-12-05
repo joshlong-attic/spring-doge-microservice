@@ -52,7 +52,7 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
     CommandLineRunner init(AccountRepository accountRepository) {
         return args -> {
             accountRepository.deleteAll();
-            Arrays.asList("juergen,mario,dave,oliver,phil,josh,spencer,mark".split(",")).forEach(n -> {
+            Arrays.asList("juergen,mario,dave,oliver,matt,phil,josh,spencer,mark".split(",")).forEach(n -> {
                 accountRepository.save(new Account(n));
             });
         };

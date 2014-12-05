@@ -91,7 +91,7 @@ function reset(){
 ### and selectively uncomment them if the script in total encounters
 ### IO errors and such.
 
-#mvn -DskipTests=true clean install
+mvn -DskipTests=true clean install
 
 login
 reset
