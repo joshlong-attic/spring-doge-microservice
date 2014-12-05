@@ -21,6 +21,9 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.Entity;
@@ -57,6 +60,7 @@ public class AccountApplication extends RepositoryRestMvcConfiguration {
 }
 
 
+
 @Component
 class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
 
@@ -72,6 +76,7 @@ class AccountResourceProcessor implements ResourceProcessor<Resource<Account>> {
         Link dogeLink = this.dogeClient.buildDogeLink(accountResource.getContent());
         if (null != dogeLink)
             accountResource.add(dogeLink);
+
         return accountResource;
     }
 }

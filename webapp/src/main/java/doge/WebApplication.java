@@ -21,8 +21,7 @@ public class WebApplication {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("client");
-                registry.addViewController("/monitor").setViewName("monitor");
-            }
+             }
         };
     }
 
