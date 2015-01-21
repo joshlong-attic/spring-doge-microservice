@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
@@ -43,9 +44,7 @@ import java.util.stream.Collectors;
  * @author Josh Long
  * @author Phillip Webb
  */
-@Configuration
-@ComponentScan
-@EnableAutoConfiguration
+@SpringBootApplication
 @EnableEurekaClient
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class DogeApplication {
@@ -61,7 +60,7 @@ public class DogeApplication {
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
         Arrays.asList(exclamations).forEach(e -> {
             String parts[] = e.split(" ");
-            dogePhotoManipulator.addTextOverlay(parts[0], parts[1], parts[2]);
+            dogePhotoManipulator.addTextOverlay( parts[0], parts[1], parts[2]);
         });
         return dogePhotoManipulator;
     }
@@ -136,7 +135,7 @@ class DogePhotoController {
     Collection<Resource<DogePhoto>> readPhotos(@PathVariable String key) {
         return this.dogePhotoRepository.findByKey(key)
                 .stream()
-                .map(dp -> new Resource<DogePhoto>(dp))
+                .map(dp -> new Resource<>(dp))
                 .collect(Collectors.toList());
     }
 
