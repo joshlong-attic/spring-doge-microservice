@@ -14,16 +14,6 @@
         <version>1.0.0.BUILD-SNAPSHOT</version>
         <relativePath/>
     </parent>
-
-<!--
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.1.8.RELEASE</version>
-    </parent>-->
-
-
-
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -35,12 +25,12 @@
     </build>
 
     <modules>
+        <module>hystrix-service</module>
         <module>config-service</module>
-     <module>eureka-service</module>
-        <!--     <module>hystrix-service</module>
-          <module>account-service</module>
-          <module>doge-service</module>
-          <module>webapp</module>-->
+        <module>eureka-service</module>
+        <module>account-service</module>
+        <module>doge-service</module>
+        <module>webapp</module>
     </modules>
 
     <dependencies>
