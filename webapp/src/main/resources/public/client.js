@@ -34,7 +34,7 @@ define([ 'require', 'angular' ], function (require, angular) {
         $scope.users = [];
         $scope.selectedUser = null;
 
-        $http.get('/api/accounts').success(function (data) {
+        $http.get('/account-service/accounts').success(function (data) {
 
             $scope.users = data['_embedded']['accounts'];
 
@@ -51,7 +51,7 @@ define([ 'require', 'angular' ], function (require, angular) {
 
                 console.log('attempting to upload ' + $files[i] + '');
 
-                var baseDogeUrl = '/api/doges/';
+                var baseDogeUrl = '/doge-service/doges/';
 
                 var key = $scope.selectedUser.id;
                 $scope.upload = $upload.upload({

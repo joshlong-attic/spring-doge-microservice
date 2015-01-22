@@ -138,13 +138,11 @@ class DogePhotoController {
                 .collect(Collectors.toList());
     }
 
- /*   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     Resource<DogePhoto> readPhoto(@PathVariable String key, @PathVariable String id) {
-        Assert.notNull(key);
-        Assert.notNull(id);
-        DogePhoto dogePhoto = ;
+       DogePhoto dogePhoto = this.dogePhotoRepository.findByKeyAndId(key, id);
         return new Resource<>(dogePhoto);
-    }*/
+    }
 
     @RequestMapping(value = "/{id}/photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     ResponseEntity<PhotoResource> readPhotoResource(@PathVariable String key, @PathVariable String id) {
