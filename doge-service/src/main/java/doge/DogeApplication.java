@@ -1,5 +1,6 @@
 package doge;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import doge.photo.DogePhotoManipulator;
 import doge.photo.Photo;
 import doge.photo.PhotoResource;
@@ -7,13 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -36,6 +34,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -56,11 +55,11 @@ public class DogeApplication {
 
     @Bean
     @RefreshScope
-    DogePhotoManipulator dogePhotoManipulator( @Value("${very-so-much}") String[] exclamations) {
+    DogePhotoManipulator dogePhotoManipulator(@Value("${very-so-much}") String[] exclamations) {
         DogePhotoManipulator dogePhotoManipulator = new DogePhotoManipulator();
         Arrays.asList(exclamations).forEach(e -> {
             String parts[] = e.split(" ");
-            dogePhotoManipulator.addTextOverlay( parts[0], parts[1], parts[2]);
+            dogePhotoManipulator.addTextOverlay(parts[0], parts[1], parts[2]);
         });
         return dogePhotoManipulator;
     }
@@ -139,11 +138,13 @@ class DogePhotoController {
                 .collect(Collectors.toList());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+ /*   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     Resource<DogePhoto> readPhoto(@PathVariable String key, @PathVariable String id) {
-        DogePhoto dogePhoto = this.dogePhotoRepository.findByKeyAndId(key, id);
-        return new Resource<DogePhoto>(dogePhoto);
-    }
+        Assert.notNull(key);
+        Assert.notNull(id);
+        DogePhoto dogePhoto = ;
+        return new Resource<>(dogePhoto);
+    }*/
 
     @RequestMapping(value = "/{id}/photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
     ResponseEntity<PhotoResource> readPhotoResource(@PathVariable String key, @PathVariable String id) {
@@ -161,14 +162,21 @@ class DogePhotoController {
         Photo photo = this.dogePhotoManipulator.manipulate(file::getInputStream);
         DogePhoto dogePhoto = this.dogePhotoRepository.save(new DogePhoto(key));
         String id = dogePhoto.getId();
+
+        Logger.getLogger(DogeApplication.class.getName()).info("key=" + key + ",id=" + id);
+
         try (InputStream inputStream = photo.getInputStream()) {
             this.fs.store(inputStream, id);
         }
-        URI uri = uriBuilder.path("/doges/{key}/photos/{id}/photo").buildAndExpand(key, id).toUri();
+        URI uri = uriBuilder.path("/doges/{key}/photos/{id}/photo")
+                .buildAndExpand(key, id)
+                .toUri();
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(uri);
+        Resource<DogePhoto> dogePhotoResource = new Resource<>(
+                this.dogePhotoRepository.findByKeyAndId(key, id));
         return new ResponseEntity<>(
-                this.readPhoto(key, id), headers, HttpStatus.CREATED);
+                dogePhotoResource, headers, HttpStatus.CREATED);
     }
 
     @Autowired
