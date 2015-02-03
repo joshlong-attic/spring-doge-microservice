@@ -34,7 +34,6 @@ import java.util.Arrays;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@EnableConfigurationProperties
 @EnableHystrix
 @EnableEurekaClient
 public class AccountApplication extends RepositoryRestMvcConfiguration {
@@ -98,6 +97,7 @@ class DogeClient {
 
     @HystrixCommand(fallbackMethod = "defaultDogeLink")
     public Link buildDogeLink(Account account) {
+
         InstanceInfo instance = discoveryClient.getNextServerFromEureka(
                 "doge-service", false);
         String url = UriComponentsBuilder.fromHttpUrl(

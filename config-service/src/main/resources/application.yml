@@ -1,7 +1,9 @@
 server:
-  port: ${vcap.application.port:8888}
+  port: ${PORT:8888}
 
 #conf: /Users/jlong/work/bootiful/bootiful-microservices/code/spring-doge-microservice-configuration
+
+
 
 spring:
   cloud:
